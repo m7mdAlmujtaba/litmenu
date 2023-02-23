@@ -16,7 +16,7 @@ use App\Http\Livewire\Rtl;
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
-
+use App\Http\Livewire\Website\Menu;
 use Illuminate\Http\Request;
 
 /*
@@ -30,9 +30,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function() {
-    return redirect('/login');
-});
+Route::get('/', function() { return ("Hello");})->name('home');
+
+// Menus
+Route::get('/menu', Menu::class)->name('menu');
 
 Route::get('/sign-up', SignUp::class)->name('sign-up');
 Route::get('/login', Login::class)->name('login');
