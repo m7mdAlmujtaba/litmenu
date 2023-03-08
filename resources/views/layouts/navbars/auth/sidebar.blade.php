@@ -39,7 +39,43 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item pb-2">
+                <a class="nav-link {{ Route::currentRouteName() == 'restaurant' ? 'active' : '' }}"
+                    href="{{ route('restaurant') }}">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>shop </title>
+                            <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Rounded-Icons" transform="translate(-1716.000000, -291.000000)" fill="#FFFFFF"
+                                    fill-rule="nonzero">
+                                    <g id="Icons-with-opacity" transform="translate(1716.000000, 291.000000)">
+                                        <g id="shop-">
+                                            <path class="color-background"
+                                                d="M20,0 C8.954305,0 0,8.954305 0,20 C0,31.045695 8.954305,40 20,40 C31.045695,40 40,31.045695 40,20 C40,8.954305 31.045695,0 20,0 Z M20,37.5 C10.835,37.5 3.5,30.165 3.5,21 C3.5,11.835 10.835,4.5 20,4.5 C29.165,4.5 36.5,11.835 36.5,21 C36.5,30.165 29.165,37.5 20,37.5 Z"
+                                                id="Path" opacity="0.598981585"></path>
+                                            <path class="color-background"
+                                                d="M20,7.5 C12.596875,7.5 6.5,13.596875 6.5,21 C6.5,28.403125 12.596875,34.5
+                                                20,34.5 C27.403125,34.5 33.5,28.403125 33.5,21 C33.5,13.596875 27.403125,7.5 20,7.5 Z M20,32 C13.3725,32 8,26.6275 8,20 C8,13.3725 13.3725,8 20,8 C26.6275,8 32,13.3725 32,20 C32,26.6275 26.6275,32 20,32 Z"
+                                                id="Path"></path>
+                                            <path class="color-background"
+                                                d="M20,12 C17.23875,12 15,14.23875 15,17 C15,19.76125 17.23875,22 20,22 C22.76125,22 25,19.76125 25,17 C25,14.23875 22.76125,12 20,12 Z M20,19.5 C18.619375,19.5 17.5,18.380625 17.5,17 C17.5,15.619375 18.619375,14.5 20,14.5 C21.380625,14.5 22.5,15.619375 22.5,17 C22.5,18.380625 21.380625,19.5 20,19.5 Z"
+                                                id="Path"></path>
+                                            <path class="color-background"
+                                                d="M20,25 C18.619375,25 17.5,23.880625 17.5,22.5 C17.5,21.119375 18.619375,20 20,20 C21.380625,20 22.5,21.119375 22.5,22.5 C22.5,23.880625 21.380625,25 20,25 Z"
+                                                id="Path"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <span class="nav-link-text ms-1">Restaurant</span>
+                </a>
+            </li>
 
+        
             <li class="nav-item mt-2">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Laravel Examples</h6>
             </li>

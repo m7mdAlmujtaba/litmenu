@@ -6,13 +6,18 @@ use App\Http\Livewire\Auth\ForgotPassword;
 use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Dashboard;
+//use App\Http\Livewire\Dashboard;
+
 use App\Http\Livewire\Billing;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\StaticSignIn;
 use App\Http\Livewire\StaticSignUp;
 use App\Http\Livewire\Rtl;
+use App\Http\Livewire\Dashboard\Dashboard;
+use App\Http\Livewire\Dashboard\Restaurant;
+use App\Http\Livewire\Dashboard\SingleRestaurant;
+
 
 use App\Http\Livewire\LaravelExamples\UserProfile;
 use App\Http\Livewire\LaravelExamples\UserManagement;
@@ -33,8 +38,27 @@ use Illuminate\Http\Request;
 Route::get('/', function() { return ("Hello");})->name('home');
 
 // Menus
-Route::get('/menu', Menu::class)->name('menu');
+Route::get('/menu/{menu}/{res}/', Menu::class)->name('menu');
 
+//routs for auth  users they have role user
+Route::middleware(['auth', 'role:user'])->group(function () {
+     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+     //restaurant
+    Route::get('/dashboard/restaurant', Restaurant::class)->name('restaurant');
+    Route::get('/dashboard/restaurant/{id}', SingleRestaurant::class)->name('single-restaurant');
+});
+//
+Route::get('qr-code/{menu}/{res}', function ($menu,$res) 
+{
+    //check if menu and res are integers
+    if(!is_numeric($menu) || !is_numeric($res))
+    {
+        return response()->json(['error' => 'Invalid data'], 400);
+    }
+  return  response(QRCode::url('menu.litcode-it.com/menu/'.$menu.'/'.$res)->png(), 200)
+  ->header('Content-Type', 'image/png'); ;    
+});
+// Laravel Examples
 Route::get('/sign-up', SignUp::class)->name('sign-up');
 Route::get('/login', Login::class)->name('login');
 
