@@ -60,3 +60,4 @@ return new class extends Migration
         Schema::dropIfExists('categories');
     }
 };
+//field list [ 'name_ar', 'name_en', 'description_ar', 'description_en', 'slug', 'status', 'restaurant_id', 'image', 'parent_id', 'order', 'type', 'icon', 'color']

@@ -66,3 +66,5 @@ return new class extends Migration
         Schema::dropIfExists('products');
     }
 };
+//fields as list
+// ['user_id', 'restaurant_id', 'category_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'slug', 'status', 'image', 'price', 'discount', 'discount_type', 'discount_start', 'discount_end', 'order']

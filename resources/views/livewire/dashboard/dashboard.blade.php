@@ -9,7 +9,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">My Restaurants</p>
                     <h5 class="font-weight-bolder mb-0">
-                        2,300
+                       {{ $restaurants->count()}}
                       
                       <span class="text-success text-sm font-weight-bolder">Restaurants</span>
                     </h5>
@@ -31,10 +31,10 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">My Codes</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold"> My Categories </p>
                     <h5 class="font-weight-bolder mb-0">
-                      2,300
-                      <span class="text-success text-sm font-weight-bolder">QR Codes</span>
+                      {{ $categories->count()}}
+                      <span class="text-success text-sm font-weight-bolder">Categories</span>
                     </h5>
                   </div>
                 </div>

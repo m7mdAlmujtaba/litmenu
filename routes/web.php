@@ -55,7 +55,7 @@ Route::get('qr-code/{menu}/{res}', function ($menu,$res)
     {
         return response()->json(['error' => 'Invalid data'], 400);
     }
-  return  response(QRCode::url('menu.litcode-it.com/menu/'.$menu.'/'.$res)->png(), 200)
+  return  response(QRCode::url('menu.litcode-it.com/menu/'.$menu.'/'.$res)->setSize(20)->png(), 200)
   ->header('Content-Type', 'image/png'); ;    
 });
 // Laravel Examples

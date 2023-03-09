@@ -82,3 +82,5 @@ return new class extends Migration
         Schema::dropIfExists('restaurants');
     }
 };
+//fillable field list 
+// ['user_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'phone', 'whatsapp', 'email', 'address_ar', 'address_en', 'lat', 'lng', 'logo', 'cover', 'status', 'slug', 'slogan_ar', 'slogan_en', 'facebook', 'twitter', 'instagram', 'youtube', 'snapchat', 'telegram', 'tiktok']

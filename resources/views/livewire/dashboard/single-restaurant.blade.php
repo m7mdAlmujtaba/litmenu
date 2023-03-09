@@ -1,3 +1,6 @@
+<div>
+
+
 @php
 use Illuminate\Support\Str;
 function excerpt($string, $limit = 100)
@@ -5,6 +8,7 @@ function excerpt($string, $limit = 100)
     return Str::limit($string, $limit);
 }
 @endphp
+
 <div class="main-content">
     <div class="page-header min-height-300 border-radius-xl mt-4"
         style="background-image: url('{{
@@ -24,13 +28,23 @@ function excerpt($string, $limit = 100)
                         class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
                         <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Edit Image"></i>
-                    </a>
+                        </a>
+                      
+
+
+                                
+
+
+
+                    
                     
 
                       
                 </div>
                 
+                
             </div>
+            
             <div class="col-auto my-auto">
                 <div class="h-100">
                     <h5 class="mb-1">
@@ -46,7 +60,7 @@ function excerpt($string, $limit = 100)
                 <div class="nav-wrapper position-relative end-0">
                     <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;"
+                            <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="#overview"
                                 role="tab" aria-controls="overview" aria-selected="true">
                                 <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -100,7 +114,7 @@ function excerpt($string, $limit = 100)
                             </a>
                         </li>
                        <li class="nav-item">
-                            <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab"
+                            <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="#products" role="tab"
                                 aria-controls="projects" aria-selected="false">
                                 <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -141,6 +155,38 @@ function excerpt($string, $limit = 100)
         </div>
     </div>
 </div>
+  <!--edit image modal -->
+  <div class="modal fade" id="editImageModal" tabindex="-1" role="dialog" wire:ignore.self>
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel1">edit logo and cover
+               </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+          </div>
+          <div class="modal-body">
+            <form wire:submit.prevent="updateLogoandCover">
+                <div class="form-group">
+                    <label for="logo">logo</label>
+                    <input type="file" class="form-control" wire:model="logo">
+                    @error('logo') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+               <div class="form-group">
+                    <label for="cover">cover</label>
+                    <input type="file" class="form-control" wire:model="cover">
+                    @error('cover') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+               
+            </form>
+          </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" wire:click.prevent="updateLogoandCover">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12 col-xl-4">
@@ -149,56 +195,52 @@ function excerpt($string, $limit = 100)
                     <h6 class="mb-0">Restaurant Settings</h6>
                 </div>
                 <div class="card-body p-3">
-                    <h6 class="text-uppercase text-body text-xs font-weight-bolder">Account</h6>
+                    <h6 class="text-uppercase text-body text-xs font-weight-bolder">Menus</h6>
                     <ul class="list-group">
+                        <!-- link to menue 1 -->
                         <li class="list-group-item border-0 px-0">
+                            <strong>   Menue 1 </strong> 
+                               <a class="d-flex align-items-center text-body" href="/menu/1/{{$restaurant->id}}" target="_blank">
+                              Link <i class="fas fa-utensils ms-auto"></i>
+                            </a>
+                            <a class="d-flex align-items-center text-body" href="#"  data-bs-toggle="modal" data-bs-target="#qrModal1">  
+                              QR Code<i class="fas fa-qrcode ms-auto"></i>
+                            </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="qrModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" wire:ignore.self>
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel1">QR Code for Menue 1
+                                         </h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="/qr-code/1/{{$restaurant->id}}" alt="QR Code" class="img-fluid" width="100%" >
+                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <a type="button" class="btn btn-primary" href="/qr-code/1/{{$restaurant->id}}" download >Download QR Code</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </li>
+                             
+                             
+                             <!--
+                             
+                                <li class="list-group-item border-0 px-0">
                             <div class="form-check form-switch ps-0">
                                 <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault"
                                     checked>
                                 <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
                                     for="flexSwitchCheckDefault">Email me when someone follows me</label>
                             </div>
-                        </li>
-                        <li class="list-group-item border-0 px-0">
-                            <div class="form-check form-switch ps-0">
-                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault1">
-                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                                    for="flexSwitchCheckDefault1">Email me when someone answers on my post</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 px-0">
-                            <div class="form-check form-switch ps-0">
-                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2"
-                                    checked>
-                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                                    for="flexSwitchCheckDefault2">Email me when someone mentions me</label>
-                            </div>
-                        </li>
-                    </ul>
-                    <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Application</h6>
-                    <ul class="list-group">
-                        <li class="list-group-item border-0 px-0">
-                            <div class="form-check form-switch ps-0">
-                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault3">
-                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                                    for="flexSwitchCheckDefault3">New launches and projects</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 px-0">
-                            <div class="form-check form-switch ps-0">
-                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault4"
-                                    checked>
-                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                                    for="flexSwitchCheckDefault4">Monthly product updates</label>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 px-0 pb-0">
-                            <div class="form-check form-switch ps-0">
-                                <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault5">
-                                <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                                    for="flexSwitchCheckDefault5">Subscribe to newsletter</label>
-                            </div>
-                        </li>
+                        </li> -->
+                     
                     </ul>
                 </div>
             </div>
@@ -208,7 +250,7 @@ function excerpt($string, $limit = 100)
                 <div class="card-header pb-0 p-3">
                     <div class="row">
                         <div class="col-md-8 d-flex align-items-center">
-                            <h6 class="mb-0">Profile Information</h6>
+                            <h6 class="mb-0" id="overview">Profile Information</h6>
                         </div>
                         <div class="col-md-4 text-right">
                             <a href="javascript:;">
@@ -282,7 +324,7 @@ function excerpt($string, $limit = 100)
                 <div class="card-body p-3">
                     <ul class="list-group">
                         @foreach ($restaurant->categories as $category)
-                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2" style="background: {{ $category->color}};">
                             <div class="avatar me-3">
                                 <img src="{{ $category->image}}" alt="kal" class="border-radius-lg shadow">
                             </div>
@@ -292,17 +334,104 @@ function excerpt($string, $limit = 100)
                                     {{ excerpt($category->description_ar, 20)}}
                                 </p>
                             </div>
-                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Delete</a>
+                            <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;" wire:click="deleteCategory({{ $category->id}})"> 
+                            Delete</a>
                         </li>
 
                         @endforeach
                       
+
+                      
                         
                     </ul>
+
+                      <!-- add new category togle modal-->
+                      <button  class="btn btn-link pe-3 ps-0 mb-0 ms-auto" data-bs-toggle="modal"
+                      data-bs-target="#addCategoryModal" href="#">Add New Category</button>
+
+
+
+
                 </div>
+
+                  <!-- Modal [ 'name_ar', 'name_en', 'description_ar', 'description_en', 'status', 'image', 'order',  'color'] -->
+                  <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" wire:ignore.self>
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel1">Add  New Category
+                             </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                        </div>
+                        <div class="modal-body">
+                          <form wire:submit.prevent="addCategory">
+                            <!-- name_ar -->
+                            <div class="mb-3">
+                              <label for="name_ar" class="form-label">Name Arabic</label>
+                              <input type="text" class="form-control" id="name_ar" wire:model="category.name_ar">
+                              @error('category.name_ar') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <!-- name_en -->
+                            <div class="mb-3">
+                              <label for="name_en" class="form-label">Name English</label>
+                              <input type="text" class="form-control" id="name_en" wire:model="category.name_en">
+                              @error('category.name_en') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <!-- description_ar -->
+                            <div class="mb-3">
+                                <label for="description_ar" class="form-label">Description Arabic</label>
+                                <textarea class="form-control" id="description_ar" wire:model="category.description_ar"></textarea>
+                                @error('category.description_ar') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            <!-- description_en -->
+                            <div class="mb-3">
+                                <label for="description_en" class="form-label">Description English</label>
+                                <textarea class="form-control" id="description_en" wire:model="category.description_en"></textarea>
+                                @error('category.description_en') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            <!-- status -->
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-control" id="status" wire:model="category.status">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                                @error('category.status') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <!-- image -->
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="image" wire:model="category.image">
+                                @error('category.image') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <!-- order -->
+                            <div class="mb-3 col-x-6">
+                                <label for="order" class="form-label">Order</label>
+                                <input type="number" class="form-control" id="order" wire:model="category.order">
+                                @error('category.order') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <!-- color -->
+                            <div class="mb-3 col-x-6">
+                                <label for="color" class="form-label">Color</label>
+                                <input type="color" class="form-control" id="color" wire:model="category.color">
+                                @error('category.color') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+
+
+                           
+            
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button wire:click.prevent="addCategory()" href="#" type="button" class="btn btn-primary" >Save changes</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
             </div>
         </div>
-        <div class="col-12 mt-4">
+        <div class="col-12 mt-4" id="products">
             <div class="card mb-4">
                 <div class="card-header pb-0 p-3">
                     <h6 class="mb-1">Products</h6>
@@ -323,7 +452,7 @@ function excerpt($string, $limit = 100)
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($restaurant->products as $product)
+                                        @foreach ($products as $product)
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -340,14 +469,22 @@ function excerpt($string, $limit = 100)
                                                 <span class="text-secondary text-sm">{{ $product->price}}</span>
                                             </td>
                                             <td>
-                                                <span class="text-secondary text-sm">{{ $product->category->name_ar}}</span>
+                                                <span class="text-secondary text-sm">
+                                                    {{ $product->category->name_ar}}
+                                                </span>
                                             </td>
                                             <td>
                                                 <a href=""
                                                     class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
                                                     data-original-title="Edit user">
-                                                    Edit
+                                                    <i class="fas fa-edit"></i>
                                                 </a>
+                                                <a href=""
+                                                    class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" wire:click.prevent="deleteProduct({{ $product->id }})"
+                                                    data-original-title="Delete user">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+
                                                
                                             </td>
                                         </tr>
@@ -356,8 +493,101 @@ function excerpt($string, $limit = 100)
                                     </tbody>
                                 </table>
                                 <!-- add new product -->
-                                 <a href="{{}}" class="btn btn-primary">Add New Product</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#addProduct">
+                                    Add New Product
+                                </button>
+                             
                             </div>
+                                 <!-- modal to add new product  [ 'category_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'status', 'image', 'price', 'discount', 'order']-->
+    <div class="modal fade" id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Restaurant</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form wire:submit.prevent="addProduct">
+                <!-- category_id -->
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Category</label>
+                    <select class="form-select" aria-label="Default select example" wire:model="category_id">
+                        
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id}}">{{ $category->name_ar}}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name Arabic</label>
+                  <input type="text" class="form-control" id="name" wire:model="name_ar">
+                  @error('name_ar') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-3">
+                  <label for="name_en" class="form-label">Name English</label>
+                  <input type="text" class="form-control" id="name_en" wire:model="name_en">
+                  @error('name_en') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- description_ar -->
+                <div class="mb-3">
+                    <label for="description_ar" class="form-label">Description Arabic</label>
+                    <textarea class="form-control" id="description_ar" rows="3" wire:model="description_ar"></textarea>
+                    @error('description_ar') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- description_en -->
+                <div class="mb-3">
+                    <label for="description_en" class="form-label">Description English</label>
+                    <textarea class="form-control" id="description_en" rows="3" wire:model="description_en"></textarea>
+                    @error('description_en') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- status -->
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" aria-label="Default select example" wire:model="status">
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+                    @error('status') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- image -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="image" wire:model="image">
+                    @error('image') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" wire:model="price">
+                    @error('price') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- discount -->
+                <div class="mb-3">
+                    <label for="discount" class="form-label">Discount</label>
+                    <input type="text" class="form-control" id="discount" wire:model="discount">
+                    @error('discount') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+                <!-- order -->
+                <div class="mb-3">
+                    <label for="order" class="form-label">Order</label>
+                    <input type="text" class="form-control" id="order" wire:model="order">
+                    @error('order') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
+          
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" wire:click.prevent="addProduct()">Save changes</button>
+            </div>
+            </div>
+            </div>
+            </div>
                         </div>
                         
                         
@@ -368,4 +598,7 @@ function excerpt($string, $limit = 100)
     </div>
 </div>
 </div>
-<!--change image modal -->
+    <!-- modal to logo and cover [logo,cover]-->
+
+
+  
