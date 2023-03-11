@@ -262,12 +262,12 @@ sup {
 }
 
 a {
-    color: #f53939;
+    color: #FDC174;
     text-decoration: none;
 }
 
 a:hover {
-    color: #d70b0b;
+    color: #FDC174;
     text-decoration: none;
 }
 
@@ -3811,7 +3811,7 @@ fieldset:disabled .btn {
 .btn-outline-primary:hover {
     color: #000;
     background-color: #FDC174;
-    border-color: #f53939;
+    border-color: #FDC174;
 }
 
 .btn-check:focus+.btn-outline-primary,
@@ -4165,12 +4165,12 @@ fieldset:disabled .btn {
 
 .btn-link {
     font-weight: 400;
-    color: #f53939;
+    color: #FDC174;
     text-decoration: none;
 }
 
 .btn-link:hover {
-    color: #d70b0b;
+    color: #FDC174;
     text-decoration: none;
 }
 
@@ -17713,7 +17713,7 @@ fieldset:disabled .btn {
 
 .btn-primary:hover,
 .btn.bg-gradient-primary:hover {
-    background-color: #f53939;
+    background-color: #FDC174;
     border-color: #f53939;
 }
 
@@ -23805,4 +23805,4 @@ pre[class*=language-] {
     }
 }
 
-#FDC174
+#FDC174#FDC174
