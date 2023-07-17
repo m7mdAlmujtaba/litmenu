@@ -15,6 +15,7 @@ class SingleRestaurant extends Component
     public $cover;
     //fields    <!-- modal to add new product  [ 'category_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'status', 'image', 'price', 'discount', 'order']-->
     public $category_id;
+    public $section_id;
     public $name_ar;
     public $name_en;
     public $description_ar;
@@ -26,6 +27,33 @@ class SingleRestaurant extends Component
     public $order;
     public $category;
     public $products;
+    public $orders;
+    public $sections;
+    public $current_status;
+    public $current_price;
+    public $current_product_id;
+
+
+    public function set_current_product_id($id){
+        $this->current_product_id = $id;
+        $product = \App\Models\Product::find($id);
+        $this->current_status = $product->status;
+        $this->current_price = $product->price;
+    }
+    public function save_current_product()
+    {
+        $product = \App\Models\Product::find($this->current_product_id);
+        $product->price = $this->current_price;
+        $product->status = $this->current_status;
+        $product->save();
+        session()->flash('update_message', 'تم تعديل السعر بنجاح');
+        $this->current_product_id = null;
+        $this->current_status = null;
+        $this->current_price = null;
+        //refresh page
+        $this->refreshComponent();  
+
+    }
 
 
     public function updateLogoandCover(){
@@ -80,13 +108,13 @@ class SingleRestaurant extends Component
         $this->category['image'] = $this->category['image']->store('public/categories');
         $this->category['image'] = str_replace('public/', '/storage/', $this->category['image']);
        
-        $category = \App\Models\Category::create($this->category);
+        $category = \App\Models\Section::create($this->category);
         $category->restaurant_id = $this->restaurant->id;
         //user_id
         $category->user_id = auth()->user()->id;
         $category->save();
         $this->resetCategory();
-        $this->categories = \App\Models\Category::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
+        $this->categories = \App\Models\Section::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
         //refresh component
         $this->refreshComponent();  
     }
@@ -108,6 +136,7 @@ class SingleRestaurant extends Component
     {
         $this->validate([
             'category_id' => 'required | numeric | exists:categories,id',
+            'section_id' => 'required | numeric | exists:sections,id',
             'name_ar' => 'required',
             'name_en' => 'required',
             'description_ar' => 'required',
@@ -154,7 +183,7 @@ class SingleRestaurant extends Component
     }
     public function deleteCategory($id)
     {
-        $category = \App\Models\Category::find($id);
+        $category = \App\Models\Section::find($id);
         if($category->image){
             $oldImage = str_replace('/storage/', 'public/', $category->image);
             \Storage::delete($oldImage);
@@ -166,7 +195,7 @@ class SingleRestaurant extends Component
         }
 
         $category->delete();
-        $this->categories = \App\Models\Category::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
+        $this->sections = \App\Models\Section::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
         //refresh component
         $this->refreshComponent();
     }
@@ -185,13 +214,31 @@ class SingleRestaurant extends Component
         $this->products = \App\Models\Product::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
     }
 
+    public function setState ($id, $state) {
+        //validate if state is valid['preparing','ready']
+        
+        if ($state != 'preparing' && $state != 'ready') {
+            session()->flash('error', 'حدث خطأ ما');
+            return;
+        }
+
+        
+        $order = \App\Models\Order::find($id);
+        $order->order_status = $state;
+        $order->save();
+
+        session()->flash('message', 'تم تغيير حالة الطلب بنجاح');
+    }
+
 
     public function mount($id)
     {
         $this->restaurant = \App\Models\Restaurant::find($id);
-        $this->categories = \App\Models\Category::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
+        $this->categories = \App\Models\Category::orderBy('order', 'asc')->get();
         $this->products = \App\Models\Product::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
-        
+        //orders if order status is accepted, preparing, ready
+        $this->orders = \App\Models\Order::where('restaurant_id', $this->restaurant->id)->whereIn('order_status', ['accepted', 'preparing', 'ready'])->orderBy('created_at', 'desc')->get();
+        $this->sections = \App\Models\Section::where('restaurant_id', $this->restaurant->id)->orderBy('order', 'asc')->get();
     }
     public function render()
     {
@@ -199,6 +246,8 @@ class SingleRestaurant extends Component
             'restaurant' => $this->restaurant,
             'categories' => $this->categories,
             'products' => $this->products,
+            'orders' => $this->orders,
+            'sections' => $this->sections,
         ]);
     }
 }

@@ -18,9 +18,21 @@ class Login extends Component
 
     public function mount() {
         if(auth()->user()){
-            redirect('/dashboard');
+            if (auth()->user()->hasRole('restaurant')) {
+                return redirect('/dashboard');
+            } else if (auth()->user()->hasRole('user')) {
+                return redirect('/');
+            } else if (auth()->user()->hasRole('admin')) {
+                return redirect('/admin/dashboard');
+            }else if (auth()->user()->hasRole('delivery')) {
+                return redirect('/delivery');
+            }else{
+                return redirect('/login');
+            }
+             
+
+
         }
-        $this->fill(['email' => 'admin@softui.com', 'password' => 'secret']);
     }
 
     public function login() {
@@ -28,7 +40,21 @@ class Login extends Component
         if(auth()->attempt(['email' => $this->email, 'password' => $this->password], $this->remember_me)) {
             $user = User::where(["email" => $this->email])->first();
             auth()->login($user, $this->remember_me);
-            return redirect()->intended('/dashboard');        
+            if (auth()->user()->hasRole('restaurant')) {
+                return redirect('/dashboard');
+            } else if (auth()->user()->hasRole('user')) {
+                return redirect('/');
+            } else if (auth()->user()->hasRole('admin')) {
+                return redirect('/admin/dashboard');
+
+            }else if (auth()->user()->hasRole('delivery')) {
+                return redirect('/delivery');
+            }else{
+                return redirect('/login');
+            }
+
+           
+                   
         }
         else{
             return $this->addError('email', trans('auth.failed')); 

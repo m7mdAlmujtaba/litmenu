@@ -20,6 +20,15 @@ class Restaurant extends Model
     {
         return $this->hasMany(Category::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
 
     public function user()
     {

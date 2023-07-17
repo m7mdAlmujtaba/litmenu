@@ -21,7 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id')->nullable();
             //category_id
             $table->unsignedBigInteger('category_id')->nullable();
-
+            //section_id
+            $table->unsignedBigInteger('section_id')->nullable();
             //name_ar
             $table->string('name_ar')->nullable();
             //name_en

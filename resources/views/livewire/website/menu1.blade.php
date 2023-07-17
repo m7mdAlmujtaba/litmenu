@@ -17,7 +17,7 @@
         </div>
 
         <div class="row menu-container">
-            @foreach ($restaurant->categories as $category) 
+            @foreach ($restaurant->sections as $category) 
             <div class="col-md-6 mb-5">
                 <h5 class="menu-category  p-2" style="background: {{$category->color}} !important">
                   {{$category->name_ar}}

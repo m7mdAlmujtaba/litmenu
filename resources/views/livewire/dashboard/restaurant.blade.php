@@ -66,7 +66,7 @@ function excerpt($string, $limit = 100)
                                 <!-- togle modal -->
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#restaurantModal">
                                     <i class="fa fa-plus text-secondary mb-3" aria-hidden="true"></i>
-                                    <h5 class=" text-secondary"> New project </h5>
+                                    <h5 class=" text-secondary"> New Restaurant </h5>
                                 </a>
                             </div>
                               <!-- Modal with fields [ 'name_ar', 'name_en', 'description_ar', 'description_en', 'phone', 'whatsapp', 'email', 'address_ar', 'address_en', 'logo', 'cover', 'status','slogan_ar', 'slogan_en', 'facebook', 'twitter', 'instagram', 'youtube', 'snapchat', 'telegram', 'tiktok'] -->

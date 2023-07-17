@@ -11,9 +11,13 @@ class Logout extends Component
         auth()->logout();
         return redirect('/login');
     }
-
+    public function mount()
+    {
+        $this->logout();
+    }
+   
     public function render()
     {
-        return view('livewire.auth.logout');
+        return view('livewire.auth.logout')->layout('layouts.website');
     }
 }

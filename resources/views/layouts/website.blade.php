@@ -25,6 +25,8 @@
     <link href="{{asset('assets/css/website.css')}}" rel="stylesheet" />
     <link href="{{asset('assets/css/spacing.css')}}" rel="stylesheet" />
     <link href="{{asset('assets/css/menu.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/index-d0d29235.css">
+
     <!-- Alpine -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     @livewireStyles
@@ -32,19 +34,12 @@
 
 <body>
     
-    <!-- Start Header Area -->
-    @if(in_array(request()->route()->getName(),['home'],))
-        @include('layouts.website.home')
-    @else
-        @include('layouts.website.main')
-    @endif
+   
     <!-- End Header Area -->
 
     {{ $slot }}
     
-    <!-- Start Footer Area -->
-    @include('layouts.footers.guest.main')
-    <!--/ End Footer Area -->
+   
 
     <!-- ========================= scroll-top ========================= -->
     <a href="#" class="scroll-top btn-hover">
@@ -54,9 +49,19 @@
     <!-- ========================= JS here ========================= -->
     
     @livewireScripts
-    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     
+    <!-- use only on /,/delivery,/checkout pages -->
+    @if (
+        
+        request()->is('/') ||
+        request()->is('delivery') ||
+        request()->is('checkout')
+    )
+                <script type="module" crossorigin src="/assets/js/index-c73f16d3.js"></script>
+
+    @endif
 
 </body>
 </html>

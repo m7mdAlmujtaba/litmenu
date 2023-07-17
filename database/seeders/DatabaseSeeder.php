@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
        
         $role1 = Role::create(['name' => 'admin']);
         $role2 = Role::create(['name' => 'user']);
+        $role3 = Role::create(['name' => 'restaurant']);
+        $role4 = Role::create(['name' => 'delivery']);
+        
         // 1.  Admin
         $user = new User();
         $user->name = 'Admin';
@@ -35,13 +38,31 @@ class DatabaseSeeder extends Seeder
         $user->email = 'user@litcode-it.com';
         $user->assignRole('user');
         $user->save();
+        // 3. Restaurant
+        $user = new User();
+        $user->name = 'Restaurant';
+        $user->password = Hash::make('000000');
+        $user->email = 'restaurant@litcode-it.com';
+        $user->assignRole('restaurant');
+        $user->save();
+        // 4. Delivery
+        $user = new User();
+        $user->name = 'Delivery';
+        $user->password = Hash::make('000000');
+        $user->email = 'delivery@litcode-it.com';
+        $user->assignRole('delivery');
+        $user->save();
+
+
+
         //seed 30 users
         \App\Models\User::factory()->count(30)->create();
         //assign role to users where id > 2
-        $users = User::where('id', '>', 2)->get();
+        $users = User::where('id', '>', 5)->get();
         foreach ($users as $user) {
             $user->assignRole('user');
         }
+
         //seed restaurants
         $this->call(RestaurantSeeder::class);
         //seed categories

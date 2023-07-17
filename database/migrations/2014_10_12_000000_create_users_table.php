@@ -21,6 +21,16 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('location')->nullable();
+            $table->string('image')->nullable();
+            //long and lat
+            $table->string('longitude')->nullable();
+            $table->string('latitude')->nullable();
+            //is delivery active
+            $table->integer('is_delivery_active')->default(0);
+            
+            //status
+            $table->integer('status')->default(0);
+
             $table->text('about')->nullable();
             $table->rememberToken();
             $table->timestamps();
